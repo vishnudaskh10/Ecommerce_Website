@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<header>
+
+    <center><img src="{% static 'img/logo.jpg' %}" height="70px" width="100px"></center>
+    <nav class="navbar navbar-expand-lg navbar-light bg-grey">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="{% static 'img/elogo.jpg' %} " height="30px" width="30px"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'shop:allprodcat' %}"><i class="fa-sharp fa-solid fa-house"></i><b>Home</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href=""><b></b></a>
+        </li>
+           {% if user.is_authenticated %}
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'shop:logo' %}"><b>Logout</b><i class="fa-solid fa-right-from-bracket"></i></a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'cart:cart_view' %}"><b><i class="fa-solid fa-cart-shopping"></i>{{item_count}}</b></a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'cart:orderview1'  %}"><b>Your Orders</b></a>
+        </li>
+       {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'shop:reg' %}"><b>Register</b></a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'shop:log' %}"><b><i class="fa-solid fa-right-to-bracket"></i>Login</b></a>
+        </li>
+          {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <b>shop</b>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'shop:allprodcat' %} ">All categories</a></li>
+              {% for i in links %}
+            <li><a class="dropdown-item" href="{% url 'shop:allproducts' i.slug %}">{{i.name}}</a></li>
+              {% endfor %}
+          </ul>
+      </ul>
+      <form class="d-flex" action="{% url 'search:searchresult' %}" method="POST">
+          {% csrf_token %}
+          <input class="form-control me-2" name="q" type="search" placeholder="Search products" aria-label="Search">
+        <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
+</header>
+    {% block content %}
+    {% endblock %}
+<br>
+    <footer class="footer">
+        <center>
+        <div class="f">
+            <p><b>&copy;Myshop pvt ltd.All rights reserved.</b></p>
+        </div>
+            </center>
+    </footer>
+</center>
+
+</body>
+</html>

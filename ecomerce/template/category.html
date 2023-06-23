@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div>
+    <center><img src="{% static 'img/banner.jpg' %}" height="300px" width="60%"></center>
+    <center><h3 class="h"><b> Our Collections</b></h3>
+        <p class="p1"><b>To help customers navigate our products, we can add collections to our Categories or Collections on Shop. <br>Categories appear as icons at the top of our Shop Store, while collections appear in the Collections section.</b></p>
+    </center>
+    <center>
+    <div class="container" style="margin-bottom:100px;">
+<div class="row" >
+  {% for i in c %}
+  <div class="col-md">
+    <div class="card" style="width: 18rem;height:300px;">
+  <img src="{{i.image.url}}" style="height:200px;width=100%;" class="card-img-top" alt="..." height="300px;" width="100%;">
+  <div class="card-body" style="poistion:relative;">
+    <h5 class="card-title">{{i.name}}</h5>
+    <p class="card-text"> </p>
+
+    <a href="{% url 'shop:allproducts' i.slug %}" class="btn btn-primary link" style="position:absolute;bottom:0;">View All</a>
+
+  </div>
+  </div>
+  </div>
+ {% endfor %}
+</div>
+</div>
+</center>
+</div>
+{% endblock %}

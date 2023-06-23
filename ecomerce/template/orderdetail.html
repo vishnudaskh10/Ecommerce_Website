@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<center>
+<div class="container div2" style="margin-bottom:420px;">
+<h2>Order Placed Successfully</h2>
+    <p> THANK YOU...</p>
+    <a class="btn" href="{% url 'shop:allprodcat' %}">Continue Shopping</a>
+</div>
+</center>
+{% endblock %}
